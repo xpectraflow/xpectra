@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
+import Image from 'next/image';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
@@ -145,9 +146,13 @@ const XpectraWebsite = () => {
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="relative w-2.5 h-2.5 bg-white rounded-full">
-                  <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-30" />
-                </div>
+                <Image
+                  src="/logo.svg"
+                  alt="xpectra logo"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
                 <span className="font-mono text-sm font-bold text-white tracking-wider">xpectra</span>
               </div>
               <Button 
@@ -501,13 +506,17 @@ const XpectraWebsite = () => {
           <div className="max-w-7xl mx-auto">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex items-center gap-3">
-                <div className="relative w-2.5 h-2.5 bg-white rounded-full">
-                  <div className="absolute inset-0 bg-white rounded-full animate-ping opacity-30" />
-                </div>
+                <Image
+                  src="/logo.svg"
+                  alt="xpectra logo"
+                  width={24}
+                  height={24}
+                  className="w-6 h-6"
+                />
                 <span className="font-mono text-sm font-bold text-white tracking-wider">xpectra</span>
               </div>
               <p className="text-white/50 text-sm">
-                © 2024 xpectra. Making sensor data reusable across missions.
+                © 2026 xpectra. Making sensor data reusable across missions.
               </p>
             </div>
           </div>
