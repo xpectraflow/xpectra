@@ -174,9 +174,9 @@ const XpectraWebsite = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-tight tracking-tighter mb-6">
+              <h1 className="text-balance text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black leading-[0.9] tracking-tighter mb-6">
                 Make sensor data<br />
-                <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-white via-gray-300 to-gray-500 bg-clip-text text-transparent md:whitespace-nowrap">
                   reusable across missions
                 </span>
               </h1>
