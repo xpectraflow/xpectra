@@ -1,5 +1,5 @@
-import { XpectraLanding } from '@/components/xpectra-landing';
+import XpectraWebsite from '@/components/xpectra-website';
 
 export default function Home() {
-  return <XpectraLanding />;
+  return <XpectraWebsite />;
 }

@@ -1,7 +1,10 @@
 /* Tailwind 4 CSS file */
 /* Extending Tailwind configuration */
+/* Use shadcn/ui format to extend the configuration */
+/* Add only the styles that your component needs */
+
+/* Base imports */
 @import "tailwindcss";
-/* @import "tw-animate-css"; */ /* Uncomment if you need additional animation utilities */
 
 /* Custom dark variant for targeting dark mode elements */
 @custom-variant dark (&:is(.dark *));
