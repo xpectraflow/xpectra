@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle2, Mail, Zap, Shield, Database, Activity, ChevronDown, X } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Zap, Shield, Database, Activity, ChevronDown, X, Twitter, Linkedin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -127,7 +127,7 @@ const XpectraWebsite = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:arushchsiitk@gmail.com?subject=Pilot Request from ${formData.name}&body=${formData.message}`;
+    window.location.href = `mailto:xpectraflow@gmail.com?subject=Pilot Request from ${formData.name}&body=${formData.message}`;
   };
 
   return (
@@ -439,7 +439,17 @@ const XpectraWebsite = () => {
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </form>
-
+              
+              <div className="mt-8 text-center">
+                <p className="text-white/50 text-sm mb-2">or email us directly:</p>
+                <a 
+                  href="mailto:xpectraflow@gmail.com" 
+                  className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-2"
+                >
+                  <Mail className="h-4 w-4" />
+                  xpectraflow@gmail.com
+                </a>
+              </div>
             </motion.div>
           </div>
         </section>
@@ -457,9 +467,29 @@ const XpectraWebsite = () => {
                 />
                 <span className="font-mono text-sm font-bold text-white tracking-wider">xpectra</span>
               </div>
-              <p className="text-white/50 text-sm">
-                © 2026 Xpectra. Making sensor data reusable across missions.
-              </p>
+              <div className="flex items-center gap-6">
+                <a
+                  href="https://x.com/XpectraF3662"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/50 hover:text-white transition-colors"
+                  aria-label="Follow us on Twitter"
+                >
+                  <Twitter className="h-5 w-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/xpectraflow"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-white/50 hover:text-white transition-colors"
+                  aria-label="Follow us on LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+                <p className="text-white/50 text-sm">
+                  © 2026 Xpectra. Making sensor data reusable across missions.
+                </p>
+              </div>
             </div>
           </div>
         </footer>
