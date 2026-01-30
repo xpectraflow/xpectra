@@ -181,7 +181,7 @@ const XpectraWebsite = () => {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-white/70 max-w-3xl mx-auto mb-10 leading-relaxed">
-              Xpectra validates, standardizes, and stores sensor data in real-time. So your pipelines don't break, your ML models don't starve, and your historical data stays usable
+              Xpectra validates, standardizes, and stores sensor data in real-time - so your pipelines don't break, your ML models don't starve, and your historical data stays usable
               </p>
               <Button 
                 size="lg" 
@@ -268,7 +268,10 @@ const XpectraWebsite = () => {
               </p>
 
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
-
+              
+              <p className="text-center text-white/80 text-xl mb-12 italic">
+                The issue isn't talent or tooling. It's missing infrastructure.
+              </p>
 
             </motion.div>
           </div>
@@ -455,7 +458,7 @@ const XpectraWebsite = () => {
                 <span className="font-mono text-sm font-bold text-white tracking-wider">xpectra</span>
               </div>
               <p className="text-white/50 text-sm">
-                © 2026 xpectra. Making sensor data reusable across missions.
+                © 2026 Xpectra. Making sensor data reusable across missions.
               </p>
             </div>
           </div>
