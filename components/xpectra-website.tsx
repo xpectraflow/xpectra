@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle2, Mail, Zap, Shield, Database, Activity, ChevronDown } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, Zap, Shield, Database, Activity, ChevronDown, X } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -127,7 +127,7 @@ const XpectraWebsite = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    window.location.href = `mailto:founders@xpectra.xyz?subject=Pilot Request from ${formData.name}&body=${formData.message}`;
+    window.location.href = `mailto:arushchsiitk@gmail.com?subject=Pilot Request from ${formData.name}&body=${formData.message}`;
   };
 
   return (
@@ -181,7 +181,7 @@ const XpectraWebsite = () => {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-white/70 max-w-3xl mx-auto mb-10 leading-relaxed">
-                xpectra is the data infrastructure layer that ingests, validates, and standardizes sensor data so teams can reuse it like code.
+              Xpectra validates, standardizes, and stores sensor data in real-time. So your pipelines don't break, your ML models don't starve, and your historical data stays usable
               </p>
               <Button 
                 size="lg" 
@@ -233,14 +233,14 @@ const XpectraWebsite = () => {
                 <div className="space-y-6">
                   <h3 className="text-xl font-semibold text-white/90 mb-6">Today</h3>
                   {[
-                    "One sensor failure can invalidate an entire operation",
+                    "One erroneous sensor invalidates the entire dataset",
                     "Engineers rewrite ingestion and validation scripts every experiment",
-                    "Failures are discovered days after data collection",
+                    "Failures surface 2-3 days post-operation, when it's too late",
                     "Data formats and metadata drift across missions",
-                    "Historical data becomes unusable for ML"
+                    "6 months later, historical data is unreadable for ML training"
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-red-500/5 border border-red-500/20">
-                      <div className="w-1.5 h-1.5 rounded-full bg-red-500 mt-2 flex-shrink-0" />
+                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
                       <p className="text-white/70">{item}</p>
                     </div>
                   ))}
@@ -248,25 +248,18 @@ const XpectraWebsite = () => {
 
                 <div className="space-y-6">
                   <h3 className="text-xl font-semibold text-white/90 mb-6">With xpectra</h3>
-                  <div className="p-6 rounded-lg bg-white/5 border border-white/10 h-full flex flex-col justify-center">
-                    <div className="space-y-4 font-mono text-sm">
-                      <div className="flex items-center gap-3">
-                        <span className="text-white/50">Sensors</span>
-                        <ArrowRight className="h-4 w-4 text-white/30" />
-                      </div>
-                      <div className="pl-8 py-3 border-l-2 border-green-500/50">
-                        <span className="text-green-400 font-bold">xpectra</span>
-                      </div>
-                      <div className="pl-8 flex items-center gap-3">
-                        <ArrowRight className="h-4 w-4 text-white/30" />
-                        <span className="text-white/50">validated + standardized data</span>
-                      </div>
-                      <div className="pl-8 flex items-center gap-3">
-                        <ArrowRight className="h-4 w-4 text-white/30" />
-                        <span className="text-white/50">existing pipelines</span>
-                      </div>
+                  {[
+                    "One bad sensor doesn't break the dataset",
+                    "Reusable ingestion and validation across experiments",
+                    "Failures caught in real-time, before operations end",
+                    "Consistent data formats and metadata across missions",
+                    "Historical data remains usable for ML training"
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-green-500/5 border border-green-500/20">
+                      <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                      <p className="text-white/70">{item}</p>
                     </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
@@ -276,9 +269,7 @@ const XpectraWebsite = () => {
 
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
 
-              <p className="text-center text-white/80 text-xl mb-12 italic">
-                The issue isn't talent or tooling. It's missing infrastructure.
-              </p>
+
             </motion.div>
           </div>
         </section>
@@ -322,48 +313,6 @@ const XpectraWebsite = () => {
           </div>
         </section>
 
-        <section id="proof" className="relative py-24 px-6 bg-black/40 backdrop-blur-sm border-y border-white/10">
-          <div className="max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="text-center"
-            >
-              <h2 className="text-4xl sm:text-5xl font-bold mb-8">Built for real operations</h2>
-              
-              <div className="mb-12 p-8 rounded-2xl bg-white/5 border border-white/10">
-                <p className="text-lg text-white/80 mb-6">
-                  Built based on interviews with engineers across space, drones, and aerospace teams.
-                </p>
-                <p className="text-white/60">
-                  Designed with real mission constraints in mind.
-                </p>
-              </div>
-
-              <div className="mb-12">
-                <h3 className="text-2xl font-semibold mb-6">What xpectra is NOT</h3>
-                <p className="text-white/60 mb-6">xpectra does not:</p>
-                <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto">
-                  {[
-                    "Replace your algorithms",
-                    "Change sensor firmware",
-                    "Add heavy dashboards",
-                    "Lock you into a new workflow"
-                  ].map((item, i) => (
-                    <div key={i} className="p-4 rounded-lg bg-white/5 border border-white/10 text-white/70">
-                      {item}
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <p className="text-xl text-white/90 italic">It strengthens what you already run.</p>
-            </motion.div>
-          </div>
-        </section>
-
         <section id="pilot" className="relative py-24 px-6">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
@@ -374,12 +323,12 @@ const XpectraWebsite = () => {
             >
               <h2 className="text-4xl sm:text-5xl font-bold mb-8">Start with a pilot</h2>
               
-              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-6 mb-12">
                 {[
-                  { label: "Duration", value: "30–45 days" },
-                  { label: "Scope", value: "One live sensor workflow" },
-                  { label: "Deliverable", value: "Real-time validation" },
-                  { label: "Outcome", value: "Clear decision point" }
+                  { label: "Duration", value: "30-45 days" },
+                  { label: "Scope", value: "One live sensor workflow (your choice)"},
+                  { label: "Deliverable", value: "Real-time validation, standardized storage, historical data access" },
+                  { label: "Outcome", value: "Clear go/no-go decision with measurable results" }
                 ].map((item, i) => (
                   <div key={i} className="p-6 rounded-lg bg-white/5 border border-white/10">
                     <div className="text-sm text-white/50 mb-2 font-mono uppercase tracking-wider">{item.label}</div>
@@ -488,16 +437,6 @@ const XpectraWebsite = () => {
                 </Button>
               </form>
 
-              <div className="mt-8 text-center">
-                <p className="text-white/50 text-sm mb-2">or email us directly:</p>
-                <a 
-                  href="mailto:founders@xpectra.xyz" 
-                  className="text-white hover:text-white/80 transition-colors inline-flex items-center gap-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  founders@xpectra.xyz
-                </a>
-              </div>
             </motion.div>
           </div>
         </section>
