@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { ArrowRight, CheckCircle2, Mail, Zap, Shield, Database, Activity, ChevronDown, X, Twitter, Linkedin } from 'lucide-react';
+import { ArrowRight, CheckCircle2, Mail, DatabaseBackup, ShieldCheck, Combine, Workflow, Cpu, LayoutDashboard, ChevronDown, X, Twitter, Linkedin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -87,23 +87,42 @@ const XpectraWebsite = () => {
 
   const features: FeatureItem[] = [
     {
+      id: "Smart Data Lifecycle Management ",
+      icon: DatabaseBackup,
+      title: "Smart Data Lifecycle Management",
+      description: "Query events from terabytes of historical data in seconds using optimized database models",
+    },
+    {
       id: "validation",
-      icon: CheckCircle2,
+      icon: ShieldCheck,
       title: "Real-time data validation",
       description: "Schema, timestamps, dropouts — caught instantly before they cascade into mission failures.",
     },
     {
       id: "ingestion",
-      icon: Database,
+      icon: Combine,
       title: "Standardized ingestion",
       description: "Across sensors and missions. No more rewriting scripts every experiment.",
     },
     {
       id: "pipelines",
-      icon: Activity,
+      icon: Workflow,
       title: "Reusable pipelines",
       description: "That don't break every experiment. Build once, use forever.",
     },
+    {
+      id: "Hardware Diagnostics",
+      icon: Cpu,
+      title: "Hardware Diagnostics",
+      description: "Tracks sensor and component performance over multiple test cycles to identify statistical drift.",
+    },
+    {
+      id: "Real-time Observability",
+      icon: LayoutDashboard,
+      title: "Real-time Observability",
+      description: "Dynamic dashboards that lets you choose what you want to see.",
+    }
+    
   ];
 
   const faqs: FAQItem[] = [
@@ -287,7 +306,6 @@ const XpectraWebsite = () => {
               className="text-center mb-16"
             >
               <h2 className="text-4xl sm:text-5xl font-bold mb-6">What xpectra does</h2>
-              <p className="text-white/60 text-lg">xpectra provides:</p>
             </motion.div>
 
             <div className="grid gap-8 md:grid-cols-3">
