@@ -252,11 +252,11 @@ const XpectraWebsite = () => {
                 <div className="space-y-6">
                   <h3 className="text-xl font-semibold text-white/90 mb-6">Today</h3>
                   {[
-                    "One erroneous sensor invalidates the entire dataset",
-                    "Engineers rewrite ingestion and validation scripts every experiment",
-                    "Failures surface 2-3 days post-operation, when it's too late",
-                    "Data formats and metadata drift across missions",
-                    "6 months later, historical data is unreadable for ML training"
+                    "Engineers spend 40% of test prep rewriting ingestion scripts",
+                    "One sensor anomaly invalidates weeks of test data",
+                    "Failures surface post-test when hardware is disassembled",
+                    "Each team maintains their own data formats: collaboration breaks",
+                    "6 months later, no one can parse historical logs for validation"
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-red-500/5 border border-red-500/20">
                       <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
@@ -266,13 +266,13 @@ const XpectraWebsite = () => {
                 </div>
 
                 <div className="space-y-6">
-                  <h3 className="text-xl font-semibold text-white/90 mb-6">With xpectra</h3>
+                  <h3 className="text-xl font-semibold text-white/90 mb-6">With Xpectra</h3>
                   {[
-                    "One bad sensor doesn't break the dataset",
-                    "Reusable ingestion and validation across experiments",
-                    "Failures caught in real-time, before operations end",
-                    "Consistent data formats and metadata across missions",
-                    "Historical data remains usable for ML training"
+                    "Engineers configure validation logic once, reuse forever",
+                    "Anomalous sensors auto-flagged, clean data continues flowing",
+                    "Real-time alerts catch issues before test completion",
+                    "Unified data standards across teams and test campaigns",
+                    "Historical data remains analysis-ready for regression and ML"
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-green-500/5 border border-green-500/20">
                       <CheckCircle2 className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
@@ -283,7 +283,7 @@ const XpectraWebsite = () => {
               </div>
 
               <p className="text-center text-white/60 mb-8 text-lg">
-                These are not edge cases — they happen every week in real operations.
+                These are not edge cases, they happen every week in real operations.
               </p>
 
               <div className="h-px w-full bg-gradient-to-r from-transparent via-white/20 to-transparent mb-8" />
