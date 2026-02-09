@@ -220,16 +220,16 @@ const XpectraWebsite = () => {
             >
               <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-sm font-mono">
                 <div className="flex items-center gap-3">
-                  <span className="text-white/50">Sensors</span>
+                  <span className="text-white/50">Sensor Telemetry</span>
                   <ArrowRight className="h-4 w-4 text-white/30" />
                 </div>
-                <div className="px-6 py-3 rounded-full bg-white/10 border border-white/20">
-                  <span className="font-bold">xpectra</span>
-                  <span className="text-white/50 ml-2 text-xs">(validate + standardize)</span>
+                <div className="px-6 py-3 rounded-full bg-white/10 border border-white/20 flex flex-col items-center gap-1">
+                  <span className="font-bold text-l">xpectra</span>
+                  <span className="text-white/50 text-xs">(validate + diagnose + standardize)</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <ArrowRight className="h-4 w-4 text-white/30" />
-                  <span className="text-white/50">Pipelines / ML</span>
+                  <span className="text-white/50">Engineering-Ready Data</span>
                 </div>
               </div>
             </motion.div>
