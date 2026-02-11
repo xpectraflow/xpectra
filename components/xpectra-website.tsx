@@ -2,7 +2,9 @@
 
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import Image from 'next/image';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
+import { useFrame, useThree } from '@react-three/fiber';
 import { Float, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -12,6 +14,8 @@ import { cn } from '@/lib/utils';
 import { ArrowRight, CheckCircle2, Mail, DatabaseBackup, ShieldCheck, Combine, Workflow, Cpu, LayoutDashboard, ChevronDown, X, Twitter, Linkedin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+
+const Canvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false });
 
 const cn2 = (...classes: (string | boolean | undefined)[]) => classes.filter(Boolean).join(' ');
 
@@ -82,8 +86,13 @@ interface FAQItem {
 }
 
 const XpectraWebsite = () => {
+  const [mounted, setMounted] = useState(false);
   const [openFAQ, setOpenFAQ] = useState<number | null>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const features: FeatureItem[] = [
     {
@@ -152,19 +161,21 @@ const XpectraWebsite = () => {
   return (
     <div className="relative min-h-screen w-full bg-[#020202] text-white overflow-x-hidden">
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <Canvas camera={{ position: [0, 0, 60], fov: 35 }}>
-          <ambientLight intensity={0.4} />
-          <spotLight position={[50, 50, 50]} intensity={3} />
-          <LiquidBackground />
-          <Monolith />
-        </Canvas>
+        {mounted && (
+          <Canvas camera={{ position: [0, 0, 60], fov: 35 }}>
+            <ambientLight intensity={0.4} />
+            <spotLight position={[50, 50, 50]} intensity={3} />
+            <LiquidBackground />
+            <Monolith />
+          </Canvas>
+        )}
       </div>
 
       <div className="relative z-10">
         <nav className="w-full border-b border-white/10 bg-black/20 backdrop-blur-xl">
           <div className="max-w-7xl mx-auto px-6 lg:px-8">
             <div className="flex h-16 items-center justify-between">
-              <div className="flex items-center gap-3">
+              <Link href="/" className="flex items-center gap-3">
                 <Image
                   src="/logo.svg"
                   alt="xpectra logo"
@@ -173,15 +184,26 @@ const XpectraWebsite = () => {
                   className="w-6 h-6"
                 />
                 <span className="font-mono text-sm font-bold text-white tracking-wider">xpectra</span>
+              </Link>
+              <div className="flex items-center gap-4">
+                <Link href="/team">
+                  <Button 
+                    size="sm" 
+                    variant="ghost"
+                    className="text-white hover:bg-white/10 font-semibold"
+                  >
+                    Team
+                  </Button>
+                </Link>
+                <Button 
+                  size="sm" 
+                  className="bg-white text-black hover:bg-gray-100 font-semibold"
+                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+                >
+                  Request pilot
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
               </div>
-              <Button 
-                size="sm" 
-                className="bg-white text-black hover:bg-gray-100 font-semibold"
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              >
-                Request pilot
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
             </div>
           </div>
         </nav>
