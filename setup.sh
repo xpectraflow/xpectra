@@ -12,15 +12,24 @@ RED='\033[0;31m'
 NC='\033[0m' # No Color
 
 clear
+clear
+
+# Color codes
+CYAN=$(tput setaf 6)
+GREEN=$(tput setaf 2)
+NC=$(tput sgr0)
+
 echo -e "${CYAN}======================================================================${NC}"
-echo -e "${CYAN}             _  __                    _               ___  _          ${NC}"
-echo -e "${CYAN}            | |/ /                   | |             / _ \| |         ${NC}"
-echo -e "${CYAN}            | ' /  _ __   ___   ___  | |_  _ __  __ _ | | | | |  ___ __  ${NC}"
-echo -e "${CYAN}            |  <  | '_ \ / _ \ / __| | __|| '__|/ _\` || | | | | / _ \\\\ \\\\/${NC}"
-echo -e "${CYAN}            | . \ | |_) |  __/| (__  | |_ | |  | (_| || |_| | || (_) |>  <${NC}"
-echo -e "${CYAN}            |_|\_\| .__/ \___| \___|  \__||_|   \__,_| \__\_\_| \___//_/\_\\\\${NC}"
-echo -e "${CYAN}                  | |                                                 ${NC}"
-echo -e "${CYAN}                  |_|                                                 ${NC}"
+cat << 'EOF'
+ __   __               _                 ______ _                     
+ \ \ / /              | |               |  ____| |                    
+  \ V /_ __   ___  ___| |_ _ __ __ _    | |__  | | _____      __      
+   > <| '_ \ / _ \/ __| __| '__/ _` |   |  __| | |/ _ \ \ /\ / /      
+  / . \ |_) |  __/ (__| |_| | | (_| |   | |    | | (_) \ V  V /       
+ /_/ \_\ .__/ \___|\__|\__|_|  \__,_|   |_|    |_|\___/ \_/\_/        
+       | |                                                            
+       |_|                                                            
+EOF
 echo -e "${CYAN}======================================================================${NC}"
 echo -e "${GREEN}               XpectraFlow Premium Self-Hosting Suite Setup            ${NC}"
 echo -e "${CYAN}======================================================================${NC}"
@@ -98,40 +107,32 @@ echo ""
 # ------------------------------------------------------------------------------
 # 2. Client SDK Installation (xpectra-client)
 # ------------------------------------------------------------------------------
-echo -e "${YELLOW}[*] Searching for Local SDK (xpectra-client)...${NC}"
-CLIENT_PATH="$(cd "$SCRIPT_DIR/../xpectra-client/python" && pwd 2>/dev/null || true)"
+echo -e "${YELLOW}[*] Checking for local Python and Pip setup...${NC}"
 
-if [ -d "$CLIENT_PATH" ]; then
-    echo -e "${GREEN}[+] Local SDK folder identified: $CLIENT_PATH${NC}"
-    echo -e "${YELLOW}[*] Checking for local Python and Pip setup...${NC}"
-    
-    PYTHON_CMD=""
-    if command -v python3 >/dev/null 2>&1; then
-        PYTHON_CMD="python3"
-    elif command -v python >/dev/null 2>&1; then
-        PYTHON_CMD="python"
-    fi
-    
-    if [ -z "$PYTHON_CMD" ]; then
-        echo -e "${RED}[!] Python was not detected in your system PATH.${NC}"
-        echo -e "${YELLOW}[!] Skipping automatic SDK package installation.${NC}"
-        echo -e "${CYAN}[!] To install the SDK manually, navigate to '$CLIENT_PATH' and run:${NC}"
-        echo -e "    pip install -e ."
-    else
-        VERSION=$($PYTHON_CMD --version)
-        echo -e "${GREEN}✅ Detected Python: $VERSION${NC}"
-        echo -e "${YELLOW}[*] Running pip package installation in editable developer mode...${NC}"
-        
-        if $PYTHON_CMD -m pip install -e "$CLIENT_PATH" >/dev/null 2>&1; then
-            echo -e "${GREEN}✅ Client SDK (xpectra-client) successfully installed on your Python runtime!${NC}"
-        else
-            echo -e "${RED}[!] Automatic pip installation failed.${NC}"
-            echo -e "${CYAN}[!] To try installing the SDK manually, run:${NC}"
-            echo -e "    pip install -e \"$CLIENT_PATH\""
-        fi
-    fi
+PYTHON_CMD=""
+if command -v python3 >/dev/null 2>&1; then
+    PYTHON_CMD="python3"
+elif command -v python >/dev/null 2>&1; then
+    PYTHON_CMD="python"
+fi
+
+if [ -z "$PYTHON_CMD" ]; then
+    echo -e "${RED}[!] Python was not detected in your system PATH.${NC}"
+    echo -e "${YELLOW}[!] Skipping automatic SDK package installation.${NC}"
+    echo -e "${CYAN}[!] To install the SDK manually from GitHub, run:${NC}"
+    echo -e "    pip install git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python"
 else
-    echo -e "${RED}[!] Local SDK directory 'xpectra-client/python' not found.${NC}"
+    VERSION=$($PYTHON_CMD --version)
+    echo -e "${GREEN}✅ Detected Python: $VERSION${NC}"
+    echo -e "${YELLOW}[*] Installing official xpectra-client SDK directly from GitHub...${NC}"
+    
+    if $PYTHON_CMD -m pip install "git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python" 2>&1; then
+        echo -e "${GREEN}✅ Client SDK (xpectra-client) successfully installed on your Python runtime!${NC}"
+    else
+        echo -e "${RED}[!] Direct pip installation from GitHub failed.${NC}"
+        echo -e "${CYAN}[!] To try installing the SDK manually, run:${NC}"
+        echo -e "    pip install git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python"
+    fi
 fi
 
 echo ""

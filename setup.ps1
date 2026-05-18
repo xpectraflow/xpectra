@@ -5,14 +5,14 @@ $ErrorActionPreference = "Stop"
 
 Clear-Host
 Write-Host "======================================================================" -ForegroundColor Cyan
-Write-Host "             _  __                    _               ___  _          " -ForegroundColor Cyan
-Write-Host "            | |/ /                   | |             / _ \| |         " -ForegroundColor Cyan
-Write-Host "            | ' /  _ __   ___   ___  | |_  _ __  __ _ | | | | |  ___ __  " -ForegroundColor Cyan
-Write-Host "            |  <  | '_ \ / _ \ / __| | __|| '__|/ _` || | | | | / _ \\ \/" -ForegroundColor Cyan
-Write-Host "            | . \ | |_) |  __/| (__  | |_ | |  | (_| || |_| | || (_) |>  <" -ForegroundColor Cyan
-Write-Host "            |_|\_\| .__/ \___| \___|  \__||_|   \__,_| \__\_\_| \___//_/\_\" -ForegroundColor Cyan
-Write-Host "                  | |                                                 " -ForegroundColor Cyan
-Write-Host "                  |_|                                                 " -ForegroundColor Cyan
+Write-Host " __   __               _                 ______ _                     " -ForegroundColor Cyan
+Write-Host " \ \ / /              | |               |  ____| |                    " -ForegroundColor Cyan
+Write-Host "  \ V /_ __   ___  ___| |_ _ __ __ _    | |__  | | _____      __      " -ForegroundColor Cyan
+Write-Host "   > <| '_ \ / _ \/ __| __| '__/ _` |   |  __| | |/ _ \ \ /\ / /      " -ForegroundColor Cyan
+Write-Host "  / . \ |_) |  __/ (__| |_| | | (_| |   | |    | | (_) \ V  V /       " -ForegroundColor Cyan
+Write-Host " /_/ \_\ .__/ \___|\__|\__|_|  \__,_|   |_|    |_|\___/ \_/\_/        " -ForegroundColor Cyan
+Write-Host "       | |                                                            " -ForegroundColor Cyan
+Write-Host "       |_|                                                            " -ForegroundColor Cyan
 Write-Host "======================================================================" -ForegroundColor Cyan
 Write-Host "               XpectraFlow Premium Self-Hosting Suite Setup            " -ForegroundColor Green
 Write-Host "======================================================================" -ForegroundColor Cyan
@@ -71,43 +71,35 @@ Write-Host ""
 # ------------------------------------------------------------------------------
 # 2. Client SDK Installation (xpectra-client)
 # ------------------------------------------------------------------------------
-Write-Host "[*] Searching for Local SDK (xpectra-client)..." -ForegroundColor Yellow
+Write-Host "[*] Checking for local Python and Pip setup..." -ForegroundColor Yellow
 
-# Locate relative python client library path
-$ClientPath = Resolve-Path (Join-Path $ScriptDir "..\xpectra-client\python") -ErrorAction SilentlyContinue
-
-if ($null -ne $ClientPath -and (Test-Path $ClientPath)) {
-    Write-Host "[+] Local SDK folder identified: $ClientPath" -ForegroundColor Green
-    Write-Host "[*] Checking for local Python and Pip setup..." -ForegroundColor Yellow
-    
-    $PythonInstalled = $false
-    try {
-        $Version = python --version 2>&1
-        if ($LastExitCode -eq 0) {
-            $PythonInstalled = $true
-            Write-Host "✅ Detected Python: $Version" -ForegroundColor Green
-        }
-    } catch {}
-    
-    if (-not $PythonInstalled) {
-        Write-Host "[!] Python was not detected in your system PATH." -ForegroundColor Red
-        Write-Host "[!] Skipping automatic SDK package installation." -ForegroundColor Yellow
-        Write-Host "[!] To install the SDK manually, navigate to '$ClientPath' and run:" -ForegroundColor Cyan
-        Write-Host "    pip install -e ." -ForegroundColor DarkCyan
-    } else {
-        Write-Host "[*] Running pip package installation in editable developer mode..." -ForegroundColor Yellow
-        try {
-            # Use python -m pip to execute reliably under different environments
-            python -m pip install -e $ClientPath.Path
-            Write-Host "✅ Client SDK (xpectra-client) successfully installed on your Python runtime!" -ForegroundColor Green
-        } catch {
-            Write-Host "[!] Automatic pip installation failed." -ForegroundColor Red
-            Write-Host "[!] To try installing the SDK manually, run:" -ForegroundColor Cyan
-            Write-Host "    pip install -e `"$($ClientPath.Path)`"" -ForegroundColor DarkCyan
-        }
+$PythonInstalled = $false
+try {
+    $Version = python --version 2>&1
+    if ($LastExitCode -eq 0) {
+        $PythonInstalled = $true
+        Write-Host "✅ Detected Python: $Version" -ForegroundColor Green
     }
+} catch {}
+
+if (-not $PythonInstalled) {
+    Write-Host "[!] Python was not detected in your system PATH." -ForegroundColor Red
+    Write-Host "[!] Skipping automatic SDK package installation." -ForegroundColor Yellow
+    Write-Host "[!] To install the SDK manually from GitHub, run:" -ForegroundColor Cyan
+    Write-Host "    pip install git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python" -ForegroundColor DarkCyan
 } else {
-    Write-Host "[!] Local SDK directory 'xpectra-client\python' not found." -ForegroundColor Red
+    Write-Host "[*] Installing official xpectra-client SDK directly from GitHub..." -ForegroundColor Yellow
+    
+    # Use python -m pip to execute reliably under different environments
+    python -m pip install "git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python"
+    
+    if ($LASTEXITCODE -eq 0) {
+        Write-Host "✅ Client SDK (xpectra-client) successfully installed on your Python runtime!" -ForegroundColor Green
+    } else {
+        Write-Host "[!] Direct pip installation from GitHub failed with exit code $LASTEXITCODE." -ForegroundColor Red
+        Write-Host "[!] To try installing the SDK manually, run:" -ForegroundColor Cyan
+        Write-Host "    pip install git+https://github.com/xpectraflow/xpectra-client.git#subdirectory=python" -ForegroundColor DarkCyan
+    }
 }
 
 Write-Host ""
