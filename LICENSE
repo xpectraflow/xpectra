@@ -1,21 +1,31 @@
-MIT License
+XPECTRAFLOW LICENSE AGREEMENT
+============================
 
-Copyright (c) 2026 Xpectra
+Copyright (c) 2026 Xpectra. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This License Agreement governs your use of the XpectraFlow software, deployment templates, Docker images, and configuration utilities (collectively, the "Software").
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+By installing, copying, pulling, or running the Software, you agree to be bound by the terms of this License.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+1. NON-COMMERCIAL & INDIVIDUAL USE LICENSE
+-----------------------------------------
+For individuals, hobbyists, students, and educational purposes:
+Licensor grants you a non-exclusive, non-transferable, royalty-free license to download, run, and use the Software solely for personal, non-commercial, educational, or experimental purposes. You do not require a paid subscription for this usage.
+
+2. COMMERCIAL & BUSINESS USE LICENSE (SUBSCRIPTION REQUIRED)
+-----------------------------------------------------------
+For any business, organization, commercial entity, government body, or individual using the Software for commercial gain:
+- Any production use, deployment inside a business network, usage by employees/contractors, or generation of revenue associated with the Software constitutes **Commercial Use**.
+- Commercial Use is strictly prohibited unless the organization maintains an active, paid **XpectraFlow Commercial Subscription** in good standing.
+- Upon termination or expiration of your subscription, the commercial license automatically revokes, and you must immediately cease running the Software.
+
+3. RESTRICTIONS
+---------------
+Regardless of whether you are an individual or business licensee, you shall not:
+- Redistribute, lease, rent, resell, or sublicense the Software, Docker images, or pull credentials to any third party.
+- Decompile, disassemble, decrypt, or attempt to extract or reverse-engineer the source code of the Software.
+- Modify, rebrand, or package the Software under a different name or commercial offering without explicit written consent from Xpectra.
+
+4. NO WARRANTY
+--------------
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
