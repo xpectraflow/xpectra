@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # Next.js Web Console (Proprietary Backend/Frontend)
+  xpectra-web:
+    image: ghcr.io/xpectraflow/xpectra-web:latest
+    container_name: xpectra-web
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXTAUTH_URL=${NEXTAUTH_URL:-http://localhost:3000}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-xpectra_admin}:${POSTGRES_PASSWORD}@timescaledb:5432/${POSTGRES_DB:-xpectradb}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_AUTH=${REDIS_AUTH}
+      - GRPC_LISTEN_ADDR=xpectra-consumer:50051
+      - INGEST_SERVICE_HTTP_ADDR=http://xpectra-consumer:50052/ingest
+      - XPECTRA_S3_MEDIA_UPLOAD_BUCKET=xpectra
+      - XPECTRA_S3_MEDIA_UPLOAD_ACCESS_KEY_ID=${MINIO_ROOT_USER:-minioadmin}
+      - XPECTRA_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
+      - XPECTRA_S3_MEDIA_UPLOAD_ENDPOINT=http://minio:9000
+      - XPECTRA_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE=true
+      - XPECTRA_S3_MEDIA_UPLOAD_REGION=us-east-1
+      # Onboarding Seeding Credentials
+      - XPECTRA_INIT_USER_NAME=${XPECTRA_INIT_USER_NAME:-}
+      - XPECTRA_INIT_USER_EMAIL=${XPECTRA_INIT_USER_EMAIL:-}
+      - XPECTRA_INIT_USER_PASSWORD=${XPECTRA_INIT_USER_PASSWORD:-}
+      - XPECTRA_INIT_ORG_NAME=${XPECTRA_INIT_ORG_NAME:-}
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+
+  # Go Ingestion Engine (Proprietary Parser & Worker)
+  xpectra-consumer:
+    image: ghcr.io/xpectraflow/xpectra-consumer:latest
+    container_name: xpectra-consumer
+    restart: unless-stopped
+    ports:
+      - "${GRPC_PORT:-50051}:50051"
+      - "${INGEST_PORT:-50052}:50052"
+    environment:
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-xpectra_admin}:${POSTGRES_PASSWORD}@timescaledb:5432/${POSTGRES_DB:-xpectradb}
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_AUTH=${REDIS_AUTH}
+      - GRPC_LISTEN_PORT=50051
+      - XPECTRA_BACKEND_URL=http://xpectra-web:3000
+      - XPECTRA_S3_MEDIA_UPLOAD_ACCESS_KEY_ID=${MINIO_ROOT_USER:-minioadmin}
+      - XPECTRA_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
+      - XPECTRA_S3_MEDIA_UPLOAD_ENDPOINT=http://minio:9000
+      - XPECTRA_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE=true
+      - XPECTRA_S3_MEDIA_UPLOAD_REGION=us-east-1
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # TimescaleDB (Internal Relational & Telemetry Engine)
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: timescaledb
+    restart: unless-stopped
+    ulimits:
+      nofile:
+        soft: 262144
+        hard: 262144
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-xpectradb}
+      - POSTGRES_USER=${POSTGRES_USER:-xpectra_admin}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - TIMESCALEDB_TELEMETRY=off
+    volumes:
+      - timescaledb_prod_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB} || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis (Internal Job Queues & Cache)
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    restart: unless-stopped
+    command: --requirepass ${REDIS_AUTH} --maxmemory-policy noeviction
+    environment:
+      - REDIS_AUTH=${REDIS_AUTH}
+    volumes:
+      - redis_prod_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_AUTH}", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # MinIO (Internal File & Telemetry Storage)
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    restart: unless-stopped
+    entrypoint: sh
+    command: -c 'mkdir -p /data/xpectra && minio server --address ":9000" --console-address ":9001" /data'
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio_prod_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  timescaledb_prod_data:
+  redis_prod_data:
+  minio_prod_data:
