@@ -85,6 +85,9 @@ docker compose down
 To pull the latest private version updates and reload your containers safely:
 ```bash
 docker compose pull
+```
+*Note: Make sure you are authenticated with `docker login ghcr.io` first.*
+```bash
 docker compose up -d
 ```
 
@@ -94,6 +97,40 @@ To inspect container startup steps or debugging events:
 docker compose logs -f xpectra-web
 docker compose logs -f xpectra-consumer
 ```
+
+---
+
+## 🛠️ Troubleshooting
+
+### 1. Database Connection and Migration Retries
+During the very first startup, **TimescaleDB** requires a few seconds to run its initial database creation scripts. 
+* **Self-Healing:** The Next.js console (`xpectra-web`) is equipped with a self-healing retry loop. If it encounters a connection error (like `ECONNREFUSED`) while TimescaleDB is booting, it will log a warning and automatically retry the connection every 2 seconds for up to 30 seconds until the database is fully up and ready.
+* **Go Consumer:** Similarly, `xpectra-consumer` will automatically attempt to reconnect to the database until successful.
+
+### 2. Changing Database Credentials in `.env` Later
+PostgreSQL only runs its initial user and password setup **on the very first boot when the database data directory is completely empty**. 
+If you edit `POSTGRES_USER` or `POSTGRES_PASSWORD` in your `.env` file *after* running the containers for the first time, PostgreSQL will ignore the new credentials because the database volume is already initialized.
+
+To successfully apply new credentials, you must do one of the following:
+
+#### A. Clean Reset (Recommended for brand new setups — Destroys existing data)
+Stop the stack and completely delete the initialized Docker volumes:
+```bash
+docker compose down -v
+docker compose up -d
+```
+*(This destroys the old database volume and forces PostgreSQL to perform a clean initialization with your new `.env` settings).*
+
+#### B. Manual Password Update (For production systems — Retains existing data)
+If you already have active data and want to update the password without data loss:
+1. Access the running TimescaleDB container CLI:
+   ```bash
+   docker exec -it timescaledb psql -U OLD_USERNAME -d postgres
+   ```
+2. Update the password manually:
+   ```sql
+   ALTER USER old_username WITH PASSWORD 'new_secure_password';
+   ```
 
 ---
 
