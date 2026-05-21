@@ -1,98 +1,104 @@
-# 🚀 XpectraFlow Self-Hosting Deployments
+# 🚀 XpectraFlow — Self-Hosting
 
-Welcome to the official self-hosting deployment template for **XpectraFlow** — the ultra-high performance telemetry visualization and ingestion pipeline.
-
-This repository contains the production `docker-compose.yml` config and environmental templates to spin up your secure, self-hosted console and ingestion engine inside a multi-container stack.
+**XpectraFlow** is an ultra-high-performance telemetry visualization and ingestion platform. This repo is everything you need to run your own private, production-grade instance in minutes.
 
 ---
 
-## 🏗️ Architecture Stack Overview
+## ⚡ One-Command Setup
 
-When you boot XpectraFlow, Docker automatically orchestrates the following isolated service layers:
+Pick your operating system and paste the corresponding command into your terminal. The setup script handles everything automatically.
 
-- **Next.js Console (`xpectra-web`):** The primary user interface and management dashboard.
-- **Go Ingestion Engine (`xpectra-consumer`):** High-speed telemetry parser supporting raw CSV uploads, HTTP stream buffers, and gRPC conduits.
-- **TimescaleDB:** Timeseries hypertable-powered database storing telemetry and metadata.
-- **Redis:** Enterprise job queues and session-caching layer.
-- **MinIO:** S3-compatible local object storage for high-density historical CSV files.
+> [!NOTE]
+> **What does the script do?**
+> It checks whether Docker is installed (and guides you if not), generates a secure configuration file with random passwords, authenticates with the private image registry, boots the full XpectraFlow stack, and opens the dashboard in your browser — all in one go.
 
 ---
 
-## ⚡ Quickstart Deployment Instructions
+### 🪟 Windows
 
-### Prerequisites
-Make sure you have the following installed on your target server:
-- **Docker Engine** (v20.10.0 or later)
-- **Docker Compose** (v2.0.0 or later)
+Open **PowerShell** (search for it in the Start Menu) and run:
+
+```powershell
+Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
+```
+
+> [!TIP]
+> If you've already cloned this repository, just run `.\setup.ps1` directly from the folder.
 
 ---
 
-### Step 1: Clone the deployment configuration
-Clone this repository directly to your server:
+### 🍎 macOS
+
+Open **Terminal** (search for it in Spotlight with `⌘ Space`) and run:
+
 ```bash
-git clone https://github.com/xpectraflow/xpectra.git
-cd xpectra
+curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh | bash
 ```
 
-### Step 2: Configure your environment variables
-Copy the environment template and edit the credentials:
-```bash
-cp .env.example .env
-nano .env
-```
-> [!IMPORTANT]
-> Change all default passwords (such as `POSTGRES_PASSWORD`, `REDIS_AUTH`, and `MINIO_ROOT_PASSWORD`) and generate a safe 32-character authentication string using:
-> `openssl rand -base64 32` for `NEXTAUTH_SECRET`.
+> [!TIP]
+> If you've already cloned this repository, just run `bash setup.sh` directly from the folder.
 
 ---
 
-### Step 3: Authenticate with the Private Container Registry
-Because XpectraFlow core images are hosted securely, you must log in to the GitHub Container Registry using your unique access token (password):
+### 🐧 Linux
+
+Open your terminal and run:
+
 ```bash
-docker login ghcr.io -u YOUR_GITHUB_USERNAME -p YOUR_CLIENT_PULL_TOKEN
+curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh | bash
 ```
-*Note: Your access token/password is provided by Xpectra upon active purchase or license sign-up.*
+
+> [!TIP]
+> If you've already cloned this repository, just run `bash setup.sh` directly from the folder.
 
 ---
 
-### Step 4: Boot the application
-Spin up the container stack in detached background mode:
-```bash
-docker compose up -d
-```
-Docker will pull the secure images from GHCR and load the databases. The bootstrapping logic will auto-initialize your admin account.
+### What is Docker?
+
+> Docker is a free tool that packages applications so they run identically on any computer, regardless of operating system or configuration. XpectraFlow uses it to run its database, cache, storage, and web services together as a single unit. **You don't need to know how Docker works** — the setup script handles it for you.
+>
+> If Docker isn't installed, the script will detect this and give you a direct download link for your platform.
 
 ---
 
-### Step 5: Access the Dashboard
-Open your web browser and navigate to:
-```
-http://YOUR_SERVER_IP:3000
-```
-Log in using the default email and password you configured under the `Automatic Root Bootstrapping` section of your `.env` file!
+## 🏗️ What Gets Deployed
+
+When you run the setup, Docker automatically orchestrates the following isolated service layers:
+
+| Service | Role |
+|---|---|
+| **xpectra-web** | Next.js management dashboard & console |
+| **xpectra-consumer** | Go ingestion engine — CSV uploads, HTTP streams, gRPC |
+| **TimescaleDB** | Time-series hypertable database for telemetry & metadata |
+| **Redis** | Enterprise job queues and session-caching layer |
+| **MinIO** | S3-compatible local object storage for historical CSV files |
+
+---
+
+## 🔐 License Authentication
+
+XpectraFlow's core images are hosted in a secure private container registry. During setup, the script will prompt you for your premium **XpectraFlow License Code** (provided upon purchase or license sign-up). 
+
+The setup script will automatically handle authentication and configure your container environment.
 
 ---
 
 ## ⚙️ Maintenance & Operations
 
 ### Stop the service stack
-To safely spin down the containers without deleting stored database volumes, run:
 ```bash
 docker compose down
 ```
 
 ### Pull and apply updates
-To pull the latest private version updates and reload your containers safely:
 ```bash
 docker compose pull
-```
-*Note: Make sure you are authenticated with `docker login ghcr.io` first.*
-```bash
 docker compose up -d
 ```
+> [!NOTE]
+> Make sure you are authenticated (`docker login ghcr.io`) before pulling updates.
 
 ### Read service logs
-To inspect container startup steps or debugging events:
 ```bash
 docker compose logs -f xpectra-web
 docker compose logs -f xpectra-consumer
@@ -102,38 +108,33 @@ docker compose logs -f xpectra-consumer
 
 ## 🛠️ Troubleshooting
 
-### 1. Database Connection and Migration Retries
-During the very first startup, **TimescaleDB** requires a few seconds to run its initial database creation scripts. 
-* **Self-Healing:** The Next.js console (`xpectra-web`) is equipped with a self-healing retry loop. If it encounters a connection error (like `ECONNREFUSED`) while TimescaleDB is booting, it will log a warning and automatically retry the connection every 2 seconds for up to 30 seconds until the database is fully up and ready.
-* **Go Consumer:** Similarly, `xpectra-consumer` will automatically attempt to reconnect to the database until successful.
+### Database not ready on first boot
 
-### 2. Changing Database Credentials in `.env` Later
-PostgreSQL only runs its initial user and password setup **on the very first boot when the database data directory is completely empty**. 
-If you edit `POSTGRES_USER` or `POSTGRES_PASSWORD` in your `.env` file *after* running the containers for the first time, PostgreSQL will ignore the new credentials because the database volume is already initialized.
+During the very first startup, **TimescaleDB** needs a few seconds to initialize. Both `xpectra-web` and `xpectra-consumer` have built-in retry loops — they will automatically reconnect every 2 seconds for up to 30 seconds. No action needed.
 
-To successfully apply new credentials, you must do one of the following:
+### Changed `.env` credentials after first boot
 
-#### A. Clean Reset (Recommended for brand new setups — Destroys existing data)
-Stop the stack and completely delete the initialized Docker volumes:
+PostgreSQL only applies `POSTGRES_USER` / `POSTGRES_PASSWORD` on the very first boot when the data volume is empty. Editing these values later has no effect.
+
+**Option A — Clean reset** *(destroys existing data — use for fresh setups)*
 ```bash
 docker compose down -v
 docker compose up -d
 ```
-*(This destroys the old database volume and forces PostgreSQL to perform a clean initialization with your new `.env` settings).*
 
-#### B. Manual Password Update (For production systems — Retains existing data)
-If you already have active data and want to update the password without data loss:
-1. Access the running TimescaleDB container CLI:
-   ```bash
-   docker exec -it timescaledb psql -U OLD_USERNAME -d postgres
-   ```
-2. Update the password manually:
-   ```sql
-   ALTER USER old_username WITH PASSWORD 'new_secure_password';
-   ```
+**Option B — Manual update** *(retains existing data — use for production)*
+```bash
+# 1. Open a shell in the running TimescaleDB container
+docker exec -it timescaledb psql -U OLD_USERNAME -d postgres
+
+# 2. Inside the psql prompt:
+ALTER USER old_username WITH PASSWORD 'new_secure_password';
+```
 
 ---
 
 ## 🔒 Security Best Practices
-1. **SSL Termination:** Always route external traffic through a secure reverse proxy (like **Nginx**, **Traefik**, or **Caddy**) with active SSL certificates for `HTTPS` and `WSS`.
-2. **Private Port Scoping:** Keep internal database ports (`5432`, `6379`, `9000`) private. They are bound within the internal Docker network and not exposed to the public internet by default.
+
+1. **SSL Termination:** Always route external traffic through a secure reverse proxy (**Nginx**, **Traefik**, or **Caddy**) with active SSL certificates for `HTTPS` and `WSS`.
+2. **Private Port Scoping:** Internal database ports (`5432`, `6379`, `9000`) are bound within the internal Docker network and are not exposed to the public internet by default.
+3. **Rotate secrets regularly:** Update `NEXTAUTH_SECRET` and all passwords in your `.env` periodically, especially after team membership changes.
