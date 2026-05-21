@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# XpectraFlow Premium Self-Hosting Installer (Bash — Linux & macOS)
+# Xpectra Premium Self-Hosting Installer (Bash — Linux & macOS)
 # ==============================================================================
 # This script will:
 #   1. Verify Docker is installed and running
 #   2. Auto-generate a secure .env configuration file
 #   3. Log you in to the private container registry
-#   4. Boot the full XpectraFlow stack with docker compose
+#   4. Boot the full Xpectra stack with docker compose
 #   5. Open the dashboard in your browser automatically
 # ==============================================================================
 set -e
@@ -26,18 +26,18 @@ clear
 
 echo -e "${CYAN}${BOLD}"
 cat << 'EOF'
- __   __               _                 ______ _
- \ \ / /              | |               |  ____| |
-  \ V /_ __   ___  ___| |_ _ __ __ _    | |__  | | _____      __      
-   > <| '_ \ / _ \/ __| __| '__/ _` |   |  __| | |/ _ \ \ /\ / /      
-  / . \ |_) |  __/ (__| |_| | | (_| |   | |    | | (_) \ V  V /       
- /_/ \_\ .__/ \___|\__|\__|_|  \__,_|   |_|    |_|\___/ \_/\_/        
-        | |
-        |_|
+                __   __               _
+                \ \ / /              | |
+                 \ V /_ __   ___  ___| |_ _ __ __ _
+                  > <| '_ \ / _ \/ __| __| '__/ _` |
+                 / . \ |_) |  __/ (__| |_| | | (_| |
+                /_/ \_\ .__/ \___|\__|\__|_|  \__,_|
+                      | |
+                      |_|
 EOF
 echo -e "${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════════════${NC}"
-echo -e "${GREEN}${BOLD}         XpectraFlow Premium Self-Hosting Suite — Setup              ${NC}"
+echo -e "${GREEN}${BOLD}             Xpectra Premium Self-Hosting Suite — Setup               ${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════════════${NC}"
 echo ""
 
@@ -226,18 +226,18 @@ fi
 # STEP 5: Authenticate with the Private Container Registry (GHCR)
 # ==============================================================================
 echo ""
-echo -e "${YELLOW}${BOLD}[4/5] Authenticating with the XpectraFlow container registry...${NC}"
+echo -e "${YELLOW}${BOLD}[4/5] Authenticating with the Xpectra container registry...${NC}"
 
 # Check if we're already authenticated
 if docker pull ghcr.io/xpectraflow/xpectra-web:latest > /dev/null 2>&1; then
     echo -e "${GREEN}✅ Already authenticated with the container registry.${NC}"
 else
     echo ""
-    echo -e "${CYAN}XpectraFlow images are hosted in a secure private registry."
-    echo -e "Please enter your premium XpectraFlow License Code to authenticate.${NC}"
+    echo -e "${CYAN}Xpectra images are hosted in a secure private registry."
+    echo -e "Please enter your premium Xpectra License Code to authenticate.${NC}"
     echo ""
 
-    read -rsp "$(echo -e "${YELLOW}  Enter your XpectraFlow License Code (hidden): ${NC}")" LICENSE_CODE
+    read -rsp "$(echo -e "${YELLOW}  Enter your Xpectra License Code (hidden): ${NC}")" LICENSE_CODE
     echo ""
 
     if echo "$LICENSE_CODE" | docker login ghcr.io -u xpectraflow-licensing --password-stdin > /dev/null 2>&1; then
@@ -256,7 +256,7 @@ fi
 # STEP 6: Boot the Stack
 # ==============================================================================
 echo ""
-echo -e "${YELLOW}${BOLD}[5/5] Pulling images and booting XpectraFlow...${NC}"
+echo -e "${YELLOW}${BOLD}[5/5] Pulling images and booting Xpectra...${NC}"
 echo -e "${CYAN}(This may take a few minutes on first run while images download)${NC}"
 echo ""
 
@@ -266,7 +266,7 @@ $COMPOSE_CMD up -d
 
 echo ""
 echo -e "${CYAN}══════════════════════════════════════════════════════════════════════${NC}"
-echo -e "${GREEN}${BOLD}🎉 XpectraFlow is live!${NC}"
+echo -e "${GREEN}${BOLD}🎉 Xpectra is live!${NC}"
 echo -e "${CYAN}══════════════════════════════════════════════════════════════════════${NC}"
 echo ""
 echo -e "  ${BOLD}Dashboard URL :${NC}  ${GREEN}${DASHBOARD_URL}${NC}"

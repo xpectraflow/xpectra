@@ -1,6 +1,6 @@
-# 🚀 XpectraFlow — Self-Hosting
+# 🚀 Xpectra — Self-Hosting
 
-**XpectraFlow** is an ultra-high-performance telemetry visualization and ingestion platform. This repo is everything you need to run your own private, production-grade instance in minutes.
+**Xpectra** is an ultra-high-performance telemetry visualization and ingestion platform. This repo is everything you need to run your own private, production-grade instance in minutes.
 
 ---
 
@@ -10,7 +10,7 @@ Pick your operating system and paste the corresponding command into your termina
 
 > [!NOTE]
 > **What does the script do?**
-> It checks whether Docker is installed (and guides you if not), generates a secure configuration file with random passwords, authenticates with the private image registry, boots the full XpectraFlow stack, and opens the dashboard in your browser — all in one go.
+> It checks whether Docker is installed (and guides you if not), generates a secure configuration file with random passwords, authenticates with the private image registry, boots the full Xpectra stack, and opens the dashboard in your browser — all in one go.
 
 ---
 
@@ -55,7 +55,7 @@ curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh |
 
 ### What is Docker?
 
-> Docker is a free tool that packages applications so they run identically on any computer, regardless of operating system or configuration. XpectraFlow uses it to run its database, cache, storage, and web services together as a single unit. **You don't need to know how Docker works** — the setup script handles it for you.
+> Docker is a free tool that packages applications so they run identically on any computer, regardless of operating system or configuration. Xpectra uses it to run its database, cache, storage, and web services together as a single unit. **You don't need to know how Docker works** — the setup script handles it for you.
 >
 > If Docker isn't installed, the script will detect this and give you a direct download link for your platform.
 
@@ -77,7 +77,7 @@ When you run the setup, Docker automatically orchestrates the following isolated
 
 ## 🔐 License Authentication
 
-XpectraFlow's core images are hosted in a secure private container registry. During setup, the script will prompt you for your premium **XpectraFlow License Code** (provided upon purchase or license sign-up). 
+Xpectra's core images are hosted in a secure private container registry. During setup, the script will prompt you for your premium **Xpectra License Code** (provided upon purchase or license sign-up). 
 
 The setup script will automatically handle authentication and configure your container environment.
 
