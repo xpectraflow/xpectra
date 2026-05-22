@@ -160,7 +160,7 @@ $ComposeFile = Join-Path $ScriptDir "docker-compose.yml"
 if (-not (Test-Path $ExampleFile) -or -not (Test-Path $ComposeFile)) {
     Write-Host "  [*] Missing required deployment assets in '$ScriptDir'. Downloading from GitHub..." -ForegroundColor Yellow
     
-    $BaseUrl = "https://raw.githubusercontent.com/xpectraflow/xpectra/main"
+    $BaseUrl = "https://get.xpectraflow.com"
     
     if (-not (Test-Path $ExampleFile)) {
         try {

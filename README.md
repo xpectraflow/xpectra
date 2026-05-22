@@ -19,7 +19,7 @@ Pick your operating system and paste the corresponding command into your termina
 Open **PowerShell** (search for it in the Start Menu) and run:
 
 ```powershell
-Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri "https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
+Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri "https://get.xpectraflow.com/setup.ps1" -OutFile "setup.ps1"; .\setup.ps1
 ```
 
 > [!TIP]
@@ -32,7 +32,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; Invoke-WebRequest -Uri "https:
 Open **Terminal** (search for it in Spotlight with `⌘ Space`) and run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh | bash
+curl -fsSL https://get.xpectraflow.com/setup.sh | bash
 ```
 
 > [!TIP]
@@ -45,7 +45,7 @@ curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh |
 Open your terminal and run:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/xpectraflow/xpectra/main/setup.sh | bash
+curl -fsSL https://get.xpectraflow.com/setup.sh | bash
 ```
 
 > [!TIP]

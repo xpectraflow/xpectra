@@ -167,7 +167,7 @@ echo -e "${YELLOW}${BOLD}[3/5] Configuring environment...${NC}"
 ENV_FILE="$SCRIPT_DIR/.env"
 EXAMPLE_FILE="$SCRIPT_DIR/.env.example"
 COMPOSE_FILE="$SCRIPT_DIR/docker-compose.yml"
-BASE_URL="https://raw.githubusercontent.com/xpectraflow/xpectra/main"
+BASE_URL="https://get.xpectraflow.com"
 
 # Auto-download missing deployment files if they are not present locally
 if [ ! -f "$EXAMPLE_FILE" ] || [ ! -f "$COMPOSE_FILE" ]; then
