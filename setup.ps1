@@ -154,6 +154,35 @@ Write-Host "[3/6] Configuring environment (.env)..." -ForegroundColor Yellow
 
 $EnvFile = Join-Path $ScriptDir ".env"
 $ExampleFile = Join-Path $ScriptDir ".env.example"
+$ComposeFile = Join-Path $ScriptDir "docker-compose.yml"
+
+# Auto-download missing deployment files if they are not present locally
+if (-not (Test-Path $ExampleFile) -or -not (Test-Path $ComposeFile)) {
+    Write-Host "  [*] Missing required deployment assets in '$ScriptDir'. Downloading from GitHub..." -ForegroundColor Yellow
+    
+    $BaseUrl = "https://raw.githubusercontent.com/xpectraflow/xpectra/main"
+    
+    if (-not (Test-Path $ExampleFile)) {
+        try {
+            Write-Host "  [+] Downloading .env.example..." -ForegroundColor Cyan
+            Invoke-WebRequest -Uri "$BaseUrl/.env.example" -OutFile $ExampleFile -UseBasicParsing
+        } catch {
+            Write-Error "Failed to download '.env.example' from GitHub: $_"
+            exit 1
+        }
+    }
+    
+    if (-not (Test-Path $ComposeFile)) {
+        try {
+            Write-Host "  [+] Downloading docker-compose.yml..." -ForegroundColor Cyan
+            Invoke-WebRequest -Uri "$BaseUrl/docker-compose.yml" -OutFile $ComposeFile -UseBasicParsing
+        } catch {
+            Write-Error "Failed to download 'docker-compose.yml' from GitHub: $_"
+            exit 1
+        }
+    }
+    Write-Host "  ✅ Downloaded all necessary assets successfully!" -ForegroundColor Green
+}
 
 if (-not (Test-Path $EnvFile)) {
     if (Test-Path $ExampleFile) {

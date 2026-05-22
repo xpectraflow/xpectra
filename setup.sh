@@ -166,6 +166,38 @@ echo -e "${YELLOW}${BOLD}[3/5] Configuring environment...${NC}"
 
 ENV_FILE="$SCRIPT_DIR/.env"
 EXAMPLE_FILE="$SCRIPT_DIR/.env.example"
+COMPOSE_FILE="$SCRIPT_DIR/docker-compose.yml"
+BASE_URL="https://raw.githubusercontent.com/xpectraflow/xpectra/main"
+
+# Auto-download missing deployment files if they are not present locally
+if [ ! -f "$EXAMPLE_FILE" ] || [ ! -f "$COMPOSE_FILE" ]; then
+    echo -e "${YELLOW}[*] Missing required deployment assets in '$SCRIPT_DIR'. Downloading from GitHub...${NC}"
+    
+    if [ ! -f "$EXAMPLE_FILE" ]; then
+        echo -e "${CYAN}[+] Downloading .env.example...${NC}"
+        if command -v curl > /dev/null 2>&1; then
+            curl -fsSL "$BASE_URL/.env.example" -o "$EXAMPLE_FILE"
+        elif command -v wget > /dev/null 2>&1; then
+            wget -q "$BASE_URL/.env.example" -O "$EXAMPLE_FILE"
+        else
+            echo -e "${RED}[✗] curl or wget is required to download deployment assets.${NC}"
+            exit 1
+        fi
+    fi
+
+    if [ ! -f "$COMPOSE_FILE" ]; then
+        echo -e "${CYAN}[+] Downloading docker-compose.yml...${NC}"
+        if command -v curl > /dev/null 2>&1; then
+            curl -fsSL "$BASE_URL/docker-compose.yml" -o "$COMPOSE_FILE"
+        elif command -v wget > /dev/null 2>&1; then
+            wget -q "$BASE_URL/docker-compose.yml" -O "$COMPOSE_FILE"
+        else
+            echo -e "${RED}[✗] curl or wget is required to download deployment assets.${NC}"
+            exit 1
+        fi
+    fi
+    echo -e "${GREEN}✅ Downloaded all necessary assets successfully!${NC}"
+fi
 
 if [ ! -f "$ENV_FILE" ]; then
     if [ ! -f "$EXAMPLE_FILE" ]; then
