@@ -95,7 +95,7 @@ if (-not $DockerInstalled) {
     exit 1
 }
 
-$CleanVersion = (docker --version 2>/dev/null) -replace '^Docker version\s*', '' -replace ',\s*build\s*.*$', ''
+$CleanVersion = (docker --version 2>$null) -replace '^Docker version\s*', '' -replace ',\s*build\s*.*$', ''
 Write-Host "  ✅ Docker found — version $CleanVersion" -ForegroundColor Green
 
 # ==============================================================================
