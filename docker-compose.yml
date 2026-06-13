@@ -12,6 +12,8 @@ services:
         condition: service_healthy
       timescaledb:
         condition: service_healthy
+      xpectra-migrate:
+        condition: service_completed_successfully
     ports:
       - "${GRPC_PORT:-50051}:50051" # Secure public gRPC pipeline ingestion interface
       - "${INGEST_PORT:-50052}:50052" # Secure public HTTP ingestion interface
@@ -111,6 +113,21 @@ services:
       interval: 3s
       timeout: 10s
       retries: 10
+
+  # One-shot database migrator. Runs Drizzle migrations to completion BEFORE
+  # xpectra-web / xpectra-consumer start (they gate on this via
+  # service_completed_successfully). The production image contains the scripts/
+  # directory and dependencies, making this safe and lightweight to run on redeploys.
+  xpectra-migrate:
+    image: ghcr.io/xpectraflow/xpectra-web:latest
+    container_name: xpectra-migrate
+    restart: "no"
+    depends_on:
+      timescaledb:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD}@timescaledb:5432/${POSTGRES_DB:-postgres}
+    command: ["node", "scripts/run-migrations.mjs"]
 
 volumes:
   minio_prod_data:
