@@ -1,8 +1,8 @@
-# 🚀 Xpectra — Self-Hosting
+# 🚀 Xpectra | Self-Hosting
 
 **Xpectra** is an ultra-high-performance telemetry visualization and ingestion platform. This repo is everything you need to run your own private, production-grade instance in minutes.
 
-[![Xpectra Telemetry Playback Demo](https://img.youtube.com/vi/yRJlbAfxUm4/0.jpg)](https://youtu.be/yRJlbAfxUm4?si=Iuid91FmczHQZyeF)
+[<img src="Recording2026-07-16160522-ezgif.com-video-to-gif-converter (1).gif" alt="Xpectra Telemetry Playback Demo" width="100%" />](https://youtu.be/yRJlbAfxUm4?si=Iuid91FmczHQZyeF)
 
 *Click the image above to watch the telemetry playback and data visualization demo.*
 
@@ -14,7 +14,7 @@ Pick your operating system and paste the corresponding command into your termina
 
 > [!NOTE]
 > **What does the script do?**
-> It checks whether Docker is installed (and guides you if not), generates a secure configuration file with random passwords, authenticates with the private image registry, boots the full Xpectra stack, and opens the dashboard in your browser — all in one go.
+> It checks whether Docker is installed (and guides you if not), generates a secure configuration file with random passwords, authenticates with the private image registry, boots the full Xpectra stack, and opens the dashboard in your browser, all in one go.
 
 ---
 
@@ -59,7 +59,7 @@ curl -fsSL https://get.xpectraflow.com/setup.sh | bash
 
 ### What is Docker?
 
-> Docker is a free tool that packages applications so they run identically on any computer, regardless of operating system or configuration. Xpectra uses it to run its database, cache, storage, and web services together as a single unit. **You don't need to know how Docker works** — the setup script handles it for you.
+> Docker is a free tool that packages applications so they run identically on any computer, regardless of operating system or configuration. Xpectra uses it to run its database, cache, storage, and web services together as a single unit. **You don't need to know how Docker works** the setup script handles it for you.
 >
 > If Docker isn't installed, the script will detect this and give you a direct download link for your platform.
 
@@ -72,7 +72,7 @@ When you run the setup, Docker automatically orchestrates the following isolated
 | Service | Role |
 |---|---|
 | **xpectra-web** | Next.js management dashboard & console |
-| **xpectra-consumer** | Go ingestion engine — CSV uploads, HTTP streams, gRPC |
+| **xpectra-consumer** | Go ingestion engine CSV uploads, HTTP streams, gRPC |
 | **TimescaleDB** | Time-series hypertable database for telemetry & metadata |
 | **Redis** | Enterprise job queues and session-caching layer |
 | **MinIO** | S3-compatible local object storage for historical CSV files |
@@ -114,19 +114,19 @@ docker compose logs -f xpectra-consumer
 
 ### Database not ready on first boot
 
-During the very first startup, **TimescaleDB** needs a few seconds to initialize. Both `xpectra-web` and `xpectra-consumer` have built-in retry loops — they will automatically reconnect every 2 seconds for up to 30 seconds. No action needed.
+During the very first startup, **TimescaleDB** needs a few seconds to initialize. Both `xpectra-web` and `xpectra-consumer` have built-in retry loops they will automatically reconnect every 2 seconds for up to 30 seconds. No action needed.
 
 ### Changed `.env` credentials after first boot
 
 PostgreSQL only applies `POSTGRES_USER` / `POSTGRES_PASSWORD` on the very first boot when the data volume is empty. Editing these values later has no effect.
 
-**Option A — Clean reset** *(destroys existing data — use for fresh setups)*
+**Option A: Clean reset** *(destroys existing data use for fresh setups)*
 ```bash
 docker compose down -v
 docker compose up -d
 ```
 
-**Option B — Manual update** *(retains existing data — use for production)*
+**Option B: Manual update** *(retains existing data use for production)*
 ```bash
 # 1. Open a shell in the running TimescaleDB container
 docker exec -it timescaledb psql -U OLD_USERNAME -d postgres
