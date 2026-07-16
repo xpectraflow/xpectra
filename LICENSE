@@ -1,42 +1,36 @@
-XPECTRAFLOW LICENSE AGREEMENT
-============================
+# Business Source License 1.1
 
-Copyright (c) 2026 Xpectra. All rights reserved.
+License text copyright (c) 2017 MariaDB Corporation Ab, All Rights Reserved.
+"Business Source License" is a trademark of MariaDB Corporation Ab.
 
-This License Agreement ("Agreement") governs your use of the XpectraFlow application, deployment templates, Docker images, configuration utilities, associated documentation, and scripts (collectively, the "Software").
+## Parameters
 
-By downloading, installing, copying, pulling, or running the Software, you agree to be bound by the terms of this Agreement. If you do not agree to these terms, do not download, install, or use the Software.
+* **Licensor:** Xpectra
+* **Licensed Work:** XpectraFlow, including associated deployment templates, Docker images, configuration scripts, and documentation.
+* **Change Date:** Four (4) years after the initial publication date of the specific version of the Licensed Work.
+* **Change License:** Apache License, Version 2.0.
+* **Additional Use Grant:** You may make use of the Licensed Work solely for non-commercial, educational, personal, or development and testing purposes. 
 
-1. NON-COMMERCIAL & INDIVIDUAL USE LICENSE
------------------------------------------
-For individuals, hobbyists, students, and educational purposes:
-Licensor grants you a non-exclusive, non-transferable, royalty-free, non-sublicensable license to download, run, and use the Software solely for personal, non-commercial, educational, or non-production purposes. You do not require a paid subscription for this usage.
+Any commercial use requires a separate commercial license agreement from the Licensor. Commercial use includes, but is not limited to:
+1. Deploying the Licensed Work in a production environment.
+2. Deploying the Licensed Work in staging or pre-production environments that support commercial production workloads.
+3. Offering the Licensed Work to third parties as a hosted service, managed service, API, or Software-as-a-Service (SaaS).
+4. Using the Licensed Work to directly generate revenue or support the internal business operations of a commercial entity.
 
-2. COMMERCIAL & BUSINESS USE LICENSE (SUBSCRIPTION REQUIRED)
------------------------------------------------------------
-For any business, organization, commercial entity, government body, or individual using the Software for commercial gain (collectively, "Commercial Users"):
-- Any use of the Software inside a business network, usage by employees or contractors, or use that supports internal business operations constitutes **Commercial Use**.
-- Commercial Use includes, but is not limited to:
-  - Any use of the Software in production environments, including staging or pre-production systems that mirror or support production workloads.
-  - Any use of the Software to generate revenue, support business operations, or provide services to customers.
-  - Any use of the Software to provide a hosted service, API, or SaaS (Software as a Service) offering to third parties.
-- Commercial Use is strictly prohibited unless you maintain an active, paid **XpectraFlow Commercial Subscription** in good standing.
-- Failure to maintain a valid subscription immediately terminates this license. Upon termination or expiration of your subscription, the commercial license automatically revokes, any further usage of the Software is unauthorized, and you must immediately cease running the Software.
+## Terms
 
-3. RESTRICTIONS
----------------
-Regardless of whether you are an individual or business licensee, you shall not:
-- Redistribute, sublicense, lease, rent, or resell the Software, Docker images, or pull credentials to any third party.
-- Decompile, disassemble, reverse-engineer, or otherwise attempt to extract, discover, or derive the source code of the Software.
-- Modify, rebrand, or package the Software under a different name or commercial offering without explicit prior written consent from Xpectra.
-- Use the Software as the core of a competing hosted or packaged telemetry, visualization, or ingestion product without Xpectra's prior written consent.
+The Licensor hereby grants you the right to copy, modify, create derivative works, redistribute, and make non-commercial use of the Licensed Work.
 
-4. NO WARRANTY & LIMITATION OF LIABILITY
----------------------------------------
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+## Conditions
 
-TO THE MAXIMUM EXTENT PERMITTED BY LAW, XPECTRA'S TOTAL LIABILITY ARISING OUT OF OR RELATED TO THIS LICENSE OR THE USE OF THE SOFTWARE SHALL NOT EXCEED THE AMOUNT PAID BY YOU UNDER ANY ACTIVE XPECTRAFLOW COMMERCIAL SUBSCRIPTION IN THE TWELVE (12) MONTHS PRECEDING THE CLAIM.
+If you make any commercial use of the Licensed Work, you must enter into a separate commercial license agreement with the Licensor. 
 
-5. FUTURE OPEN SOURCE TRANSITION (BSL CLASSIC)
----------------------------------------------
-Xpectra commits to supporting the developer ecosystem. For any specific version of the Software, upon the date four (4) years from the initial public release of that version (the "Change Date"), Xpectra will relicense that specific version of the Software under the Apache License, Version 2.0 or another OSI-approved open-source license chosen at its sole discretion.
+If you distribute the Licensed Work, you must include a copy of this license, including the Parameters, with that distribution. Any modifications or derivative works you create and distribute must also be governed by this license, and the Change Date must remain the same as the original Licensed Work.
+
+## Change Date
+
+On the Change Date, the Licensor automatically grants you the rights to use the Licensed Work under the terms of the Change License (Apache License, Version 2.0). All restrictions in this license regarding commercial use are null and void for that specific version of the Licensed Work upon the Change Date.
+
+## Limitation of Liability
+
+THE LICENSED WORK IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. IN NO EVENT SHALL THE LICENSOR BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH THE LICENSED WORK OR THE USE OR OTHER DEALINGS IN THE LICENSED WORK.
