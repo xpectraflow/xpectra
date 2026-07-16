@@ -2,6 +2,10 @@
 
 **Xpectra** is an ultra-high-performance telemetry visualization and ingestion platform. This repo is everything you need to run your own private, production-grade instance in minutes.
 
+[![Xpectra Telemetry Playback Demo](https://img.youtube.com/vi/yRJlbAfxUm4/0.jpg)](https://youtu.be/yRJlbAfxUm4?si=Iuid91FmczHQZyeF)
+
+*Click the image above to watch the telemetry playback and data visualization demo.*
+
 ---
 
 ## ⚡ One-Command Setup
